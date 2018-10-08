@@ -31,14 +31,19 @@
     <p>Gerenciador de Usuários</p>
     
     <form action="index.php" method="post">
-        <label for="">Problema</label>
-        <input name="titulo" type="text" value=""/>
-        <input name="botao_adicionar" type="submit" value="Adicionar">
+
+        <input name="nome_completo" type="text" value="" required autofocus placeholder="Nome Completo"/><br><br>
+
+        <input name="nome_acesso" type="text" value="" required placeholder="Nome de Acesso"/><br><br>
+
+        <input name="senha" type="password" value="" required placeholder="Senha"/><br><br>
+
+        <input name="botao_adicionar" type="submit" value="Adicionar"><br><br>
     </form>
 
     <?php
 
-        $servidor = "teamone_db_1";
+        $servidor = "team_one_db_1";
         $usuario = "root";
         $senha = "phprs";
         $table = "usuarios";
@@ -63,14 +68,15 @@
         # Tratar dados enviados via POST para excluir registro.
 
         # Tratar dados enviados para a página. data send to index
-        if($_POST["titulo"] != ""){
-            $sql = "INSERT INTO tickets (titulo, status) VALUES ('".utf8_encode($_POST["titulo"])."', 0)";         
+        if($_POST["nome_completo"]!= ""){
+            $sql = "INSERT INTO usuarios (nome_completo, nome_acesso, senha, status) VALUES ('".utf8_encode($_POST["nome_completo"])."', '".utf8_encode($_POST["nome_acesso"])."','".utf8_encode($_POST["senha"])."', 0)";         
             if($connection->query($sql)===TRUE){
-                echo "Ticket adicionado!";
+                echo "Usuario adicionado!";
             }else{
                 echo "Ocorreu um erro:".$sql."<br/>".$connection->error;
             }
         }
+
 
         # Recover all register of tickets table.
         $sql = "SELECT * FROM usuarios";
